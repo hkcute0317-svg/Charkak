@@ -127,11 +127,11 @@
       align-items: center;
     }
 
-    /* 카메라 화면 */
+    /* 카메라 화면 (프레임 사진 비율인 4:3에 맞춤) */
     .camera-box {
       position: relative;
       width: 100%;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 4 / 3;
       background: #000;
       border-radius: 14px;
       overflow: hidden;
@@ -178,7 +178,6 @@
       100% { opacity: 0; }
     }
 
-    /* 촬영 정보 및 컨트롤 */
     .shot-status {
       margin: 12px 0;
       font-size: 15px;
@@ -223,7 +222,7 @@
       color: #ffffff;
     }
 
-    /* 썸네일 바둑판 그리드 (Step 4) */
+    /* 썸네일 그리드 (3x2) */
     .thumb-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -246,7 +245,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scaleX(-1);
     }
 
     .thumb-item.selected::after {
@@ -267,10 +265,35 @@
       border: 1.5px solid white;
     }
 
-    /* 프레임 및 옵션 선택 */
+    /* 실시간 미리보기 및 옵션 영역 */
+    .editor-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .live-preview-box {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      background: #f9f9f9;
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px dashed #ccc;
+    }
+
+    canvas {
+      max-width: 200px;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+    }
+
     .option-group {
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .option-title {
@@ -303,22 +326,6 @@
       color: white;
     }
 
-    /* 결과물 캔버스 미리보기 (Step 5) */
-    .preview-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    canvas {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 3px 3px 0px var(--border-black);
-      border: 2px solid var(--border-black);
-    }
-
     .hidden-canvas {
       display: none;
     }
@@ -339,7 +346,7 @@
       <div class="card" style="margin-top: auto; margin-bottom: auto; text-align: center; padding: 30px 20px;">
         <div style="font-size: 50px; margin-bottom: 10px;">📸</div>
         <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 8px;">네컷사진 촬영하기</h2>
-        <p style="font-size: 13px; color: #666; margin-bottom: 24px; line-weight: 1.4;">
+        <p style="font-size: 13px; color: #666; margin-bottom: 24px; line-height: 1.4;">
           총 6번 촬영 후 마음에 드는<br>사진 4장을 선택할 수 있어요!
         </p>
         <button class="btn btn-yellow" onclick="startCamera()">촬영 시작하기 ⚡</button>
@@ -359,48 +366,51 @@
       </div>
     </section>
 
-    <!-- STEP 3: 4장 선택 및 필터/프레임 선택 -->
+    <!-- STEP 3: 선택 & 실시간 편집 (mysketchbooth 스타일) -->
     <section id="step-3" class="screen">
       <div class="card">
         <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 10px; width: 100%;">사진 4장 선택 (<span id="select-count">0</span>/4)</h3>
         
         <div class="thumb-grid" id="thumb-grid"></div>
 
-        <div class="option-group">
-          <div class="option-title">필터 선택</div>
-          <div class="option-buttons">
-            <button class="opt-btn active" onclick="setFilter('normal', this)">원본</button>
-            <button class="opt-btn" onclick="setFilter('bw', this)">흑백</button>
-            <button class="opt-btn" onclick="setFilter('warm', this)">따뜻하게</button>
-            <button class="opt-btn" onclick="setFilter('vivid', this)">비비드</button>
+        <div class="editor-layout">
+          <!-- 실시간 미리보기 캔버스 -->
+          <div class="live-preview-box">
+            <canvas id="live-canvas"></canvas>
           </div>
-        </div>
 
-        <div class="option-group">
-          <div class="option-title">프레임 색상</div>
-          <div class="option-buttons">
-            <button class="opt-btn active" onclick="setFrameColor('#FF007A', this)">핫핑크</button>
-            <button class="opt-btn" onclick="setFrameColor('#FFD600', this)">옐로우</button>
-            <button class="opt-btn" onclick="setFrameColor('#111111', this)">블랙</button>
-            <button class="opt-btn" onclick="setFrameColor('#FFFFFF', this)">화이트</button>
+          <div class="option-group">
+            <div class="option-title">필터 선택</div>
+            <div class="option-buttons">
+              <button class="opt-btn active" onclick="setFilter('normal', this)">원본</button>
+              <button class="opt-btn" onclick="setFilter('bw', this)">흑백</button>
+              <button class="opt-btn" onclick="setFilter('warm', this)">따뜻하게</button>
+              <button class="opt-btn" onclick="setFilter('vivid', this)">비비드</button>
+            </div>
           </div>
-        </div>
 
-        <button class="btn btn-black" style="margin-top: 10px;" onclick="generateFinalImage()">프레임 완성하기 ✨</button>
+          <div class="option-group">
+            <div class="option-title">프레임 색상</div>
+            <div class="option-buttons">
+              <button class="opt-btn active" onclick="setFrameColor('#FF007A', this)">핫핑크</button>
+              <button class="opt-btn" onclick="setFrameColor('#FFD600', this)">옐로우</button>
+              <button class="opt-btn" onclick="setFrameColor('#111111', this)">블랙</button>
+              <button class="opt-btn" onclick="setFrameColor('#FFFFFF', this)">화이트</button>
+            </div>
+          </div>
+
+          <button class="btn btn-black" style="margin-top: 8px;" onclick="goToDownloadStep()">완성된 사진 저장하기 ✨</button>
+        </div>
       </div>
     </section>
 
-    <!-- STEP 4: 최종 결과 및 다운로드 -->
+    <!-- STEP 4: 최종 저장 및 다시찍기 -->
     <section id="step-4" class="screen">
       <div class="card">
-        <div class="preview-container">
-          <canvas id="final-canvas"></canvas>
-        </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
-          <button class="btn btn-yellow" onclick="downloadImage()">📥 사진 저장하기</button>
-          <button class="btn btn-pink" style="background: #eee; color: #333;" onclick="restartProcess()">🔄 다시 찍기</button>
-        </div>
+        <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
+        <h2 style="font-size: 18px; font-weight: 900; margin-bottom: 16px;">멋진 네컷사진이 완성되었습니다!</h2>
+        <button class="btn btn-yellow" style="margin-bottom: 10px;" onclick="downloadImage()">📥 사진 다운로드</button>
+        <button class="btn btn-pink" style="background: #eee; color: #333;" onclick="restartProcess()">🔄 처음부터 다시 찍기</button>
       </div>
     </section>
   </div>
@@ -408,7 +418,6 @@
   <canvas id="process-canvas" class="hidden-canvas"></canvas>
 
   <script>
-    // Audio Context (효과음 생성용)
     let audioCtx = null;
 
     function initAudio() {
@@ -417,7 +426,6 @@
       }
     }
 
-    // 사운드 재생 함수 (터치/카운트다운/셔터)
     function playSound(type) {
       if (!audioCtx) return;
       try {
@@ -429,7 +437,6 @@
         const now = audioCtx.currentTime;
 
         if (type === 'pop') {
-          // 버튼 터치음 (뽁!)
           osc.type = 'sine';
           osc.frequency.setValueAtTime(400, now);
           osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
@@ -438,7 +445,6 @@
           osc.start(now);
           osc.stop(now + 0.08);
         } else if (type === 'beep') {
-          // 카운트다운 소리 (틱!)
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(600, now);
           gain.gain.setValueAtTime(0.2, now);
@@ -446,7 +452,6 @@
           osc.start(now);
           osc.stop(now + 0.05);
         } else if (type === 'shutter') {
-          // 카메라 셔터 소리 (찰칵!)
           osc.type = 'square';
           osc.frequency.setValueAtTime(150, now);
           osc.frequency.exponentialRampToValueAtTime(40, now + 0.15);
@@ -456,11 +461,10 @@
           osc.stop(now + 0.15);
         }
       } catch (e) {
-        console.log("Audio play error", e);
+        console.log(e);
       }
     }
 
-    // 모든 버튼 클릭 시 터치 효과음 추가
     document.addEventListener('click', (e) => {
       if (e.target.closest('button') || e.target.closest('.thumb-item')) {
         initAudio();
@@ -468,7 +472,6 @@
       }
     });
 
-    // 앱 상태 변수
     let videoStream = null;
     let capturedPhotos = [];
     let selectedPhotos = [];
@@ -480,13 +483,11 @@
     let currentFilter = 'normal';
     let currentFrameColor = '#FF007A';
 
-    // 화면 전환
     function showScreen(stepId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(stepId).classList.add('active');
     }
 
-    // 카메라 시작 (셀카 모드)
     async function startCamera() {
       initAudio();
       try {
@@ -505,11 +506,9 @@
         startShotSequence();
       } catch (err) {
         alert('카메라에 접근할 수 없습니다. 권한을 확인해주세요.');
-        console.error(err);
       }
     }
 
-    // 촬영 시퀀스 시작
     function startShotSequence() {
       if (currentShotCount >= maxShots) {
         finishShooting();
@@ -539,7 +538,6 @@
       }, 1000);
     }
 
-    // 3초 후 바로 찍기
     function triggerQuickShot() {
       if (currentTimerSeconds > 3) {
         currentTimerSeconds = 3;
@@ -549,45 +547,62 @@
       }
     }
 
-    // 사진 촬영
     function takePhoto() {
       document.getElementById('countdown').style.display = 'none';
       document.getElementById('quick-btn').style.display = 'none';
 
-      // 플래시 애니메이션 & 셔터음
       const flash = document.getElementById('flash');
       flash.classList.add('animate');
       playSound('shutter');
       setTimeout(() => flash.classList.remove('animate'), 300);
 
-      // 캔버스에 비디오 프레임 그리기
       const video = document.getElementById('webcam');
       const canvas = document.getElementById('process-canvas');
-      canvas.width = video.videoWidth || 640;
-      canvas.height = video.videoHeight || 480;
+
+      // 프레임 사진 비율(4:3)에 명확히 맞춰서 자르고 저장
+      const vWidth = video.videoWidth || 640;
+      const vHeight = video.videoHeight || 480;
+      
+      const targetAspect = 4 / 3;
+      let cropWidth = vWidth;
+      let cropHeight = vWidth / targetAspect;
+
+      if (cropHeight > vHeight) {
+        cropHeight = vHeight;
+        cropWidth = vHeight * targetAspect;
+      }
+
+      const startX = (vWidth - cropWidth) / 2;
+      const startY = (vHeight - cropHeight) / 2;
+
+      canvas.width = 800;
+      canvas.height = 600;
       
       const ctx = canvas.getContext('2d');
       ctx.translate(canvas.width, 0);
-      ctx.scale(-1, 1); // 좌우 반전 고정
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      ctx.scale(-1, 1); // 좌우반전 (셀카)
+      
+      ctx.drawImage(video, startX, startY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
 
-      capturedPhotos.push(canvas.toDataURL('image/jpeg', 0.9));
+      capturedPhotos.push(canvas.toDataURL('image/jpeg', 0.95));
 
       setTimeout(() => {
         startShotSequence();
       }, 1000);
     }
 
-    // 촬영 종료
     function finishShooting() {
       if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
       }
       renderThumbnails();
+      // 기본적으로 1~4번째 사진을 미리 선택해둠
+      selectedPhotos = [0, 1, 2, 3];
+      updateSelectCount();
       showScreen('step-3');
+      renderLiveFrame();
     }
 
-    // 썸네일 그리드 출력
     function renderThumbnails() {
       const grid = document.getElementById('thumb-grid');
       grid.innerHTML = '';
@@ -603,81 +618,68 @@
         item.appendChild(img);
         grid.appendChild(item);
       });
-
-      updateSelectCount();
     }
 
-    // 사진 선택/해제
     function togglePhotoSelect(index, element) {
       const selectedIdx = selectedPhotos.indexOf(index);
 
       if (selectedIdx > -1) {
         selectedPhotos.splice(selectedIdx, 1);
-        element.classList.remove('selected');
-        element.removeAttribute('data-order');
       } else {
         if (selectedPhotos.length >= 4) {
           alert('사진은 최대 4장까지 선택할 수 있습니다.');
           return;
         }
         selectedPhotos.push(index);
-        element.classList.add('selected');
       }
 
-      // 순서 번호 업데이트
-      document.querySelectorAll('.thumb-item').forEach((el, i) => {
-        const order = selectedPhotos.indexOf(i);
-        if (order > -1) {
-          el.setAttribute('data-order', order + 1);
-        } else {
-          el.removeAttribute('data-order');
-        }
-      });
-
       updateSelectCount();
+      renderLiveFrame(); // 설정 변경 시 실시간 렌더링
     }
 
     function updateSelectCount() {
       document.getElementById('select-count').innerText = selectedPhotos.length;
+      document.querySelectorAll('.thumb-item').forEach((el, i) => {
+        const order = selectedPhotos.indexOf(i);
+        if (order > -1) {
+          el.classList.add('selected');
+          el.setAttribute('data-order', order + 1);
+        } else {
+          el.classList.remove('selected');
+          el.removeAttribute('data-order');
+        }
+      });
     }
 
-    // 필터 변경
     function setFilter(filter, btn) {
       currentFilter = filter;
       btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      renderLiveFrame(); // 실시간 반영
     }
 
-    // 프레임 색상 변경
     function setFrameColor(color, btn) {
       currentFrameColor = color;
       btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      renderLiveFrame(); // 실시간 반영
     }
 
-    // 최종 고해상도 네컷 이미지 생성 (Canvas)
-    async function generateFinalImage() {
-      if (selectedPhotos.length !== 4) {
-        alert('4장의 사진을 모두 선택해주세요!');
-        return;
-      }
-
-      showScreen('step-4');
-
-      const canvas = document.getElementById('final-canvas');
+    // 실시간 프레임 합성 렌더링 (https://mysketchbooth.com/ 방식)
+    async function renderLiveFrame() {
+      const canvas = document.getElementById('live-canvas');
       const ctx = canvas.getContext('2d');
 
-      // 네컷 프레임 비율 설정 (800 x 2400)
       const width = 800;
       const height = 2400;
       canvas.width = width;
       canvas.height = height;
 
-      // 1. 프레임 배경색
+      // 1. 프레임 배경
       ctx.fillStyle = currentFrameColor;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. 사진 4장 그리기
+      // 2. 사진 4장 렌더링
       const padding = 40;
       const photoW = width - (padding * 2);
       const photoH = 430;
@@ -685,48 +687,46 @@
       const gap = 30;
 
       for (let i = 0; i < 4; i++) {
-        const photoIndex = selectedPhotos[i];
-        const img = new Image();
-        img.src = capturedPhotos[photoIndex];
-        await new Promise(res => img.onload = res);
-
         const y = startY + i * (photoH + gap);
 
-        ctx.save();
-        
-        // 필터 효과 적용
-        if (currentFilter === 'bw') {
-          ctx.filter = 'grayscale(100%)';
-        } else if (currentFilter === 'warm') {
-          ctx.filter = 'sepia(30%) saturate(120%)';
-        } else if (currentFilter === 'vivid') {
-          ctx.filter = 'saturate(160%) contrast(110%)';
-        }
+        if (i < selectedPhotos.length) {
+          const photoIndex = selectedPhotos[i];
+          const img = new Image();
+          img.src = capturedPhotos[photoIndex];
+          await new Promise(res => img.onload = res);
 
-        // 이미지 크기 맞춤 및 조절
-        ctx.drawImage(img, padding, y, photoW, photoH);
-        ctx.restore();
+          ctx.save();
+          if (currentFilter === 'bw') {
+            ctx.filter = 'grayscale(100%)';
+          } else if (currentFilter === 'warm') {
+            ctx.filter = 'sepia(30%) saturate(120%)';
+          } else if (currentFilter === 'vivid') {
+            ctx.filter = 'saturate(160%) contrast(110%)';
+          }
+
+          ctx.drawImage(img, padding, y, photoW, photoH);
+          ctx.restore();
+        } else {
+          // 사진이 아직 안 뽑혔을 때 빈 공간
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+          ctx.fillRect(padding, y, photoW, photoH);
+        }
       }
 
-      // 3. 하단 텍스트 레이아웃
+      // 3. 하단 문구
       const textCenterY = startY + 4 * (photoH + gap) + 100;
-
-      // 텍스트 색상 (프레임 색상에 맞춰 대비)
       const isWhiteFrame = currentFrameColor.toUpperCase() === '#FFFFFF' || currentFrameColor.toUpperCase() === '#FFD600';
       const textColor = isWhiteFrame ? '#111111' : '#FFFFFF';
 
       ctx.fillStyle = textColor;
       ctx.textAlign = 'center';
 
-      // 문구 1: 행복을 쫓는 우리에게
       ctx.font = '900 48px "Pretendard", sans-serif';
       ctx.fillText('행복을 쫓는 우리에게', width / 2, textCenterY);
 
-      // 문구 2: 행운의 네잎보다 행복의 세잎 🍀
       ctx.font = '700 26px "Pretendard", sans-serif';
       ctx.fillText('행운의 네잎보다 행복의 세잎 🍀', width / 2, textCenterY + 55);
 
-      // 당일 날짜 자동 적용 (YYYY.MM.DD)
       const now = new Date();
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -739,16 +739,22 @@
       ctx.globalAlpha = 1.0;
     }
 
-    // 이미지 파일 다운로드
+    function goToDownloadStep() {
+      if (selectedPhotos.length !== 4) {
+        alert('4장의 사진을 모두 선택해주세요!');
+        return;
+      }
+      showScreen('step-4');
+    }
+
     function downloadImage() {
-      const canvas = document.getElementById('final-canvas');
+      const canvas = document.getElementById('live-canvas');
       const link = document.createElement('a');
-      link.download = `photo-booth-${Date.now()}.png`;
+      link.download = `four-cut-${Date.now()}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
 
-    // 처음으로 되돌아가기
     function restartProcess() {
       if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
