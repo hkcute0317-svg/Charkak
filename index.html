@@ -5,20 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>행복을 쫓는 우리에게</title>
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Fredoka:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
     :root {
-      --vivid-pink: #E5007D;
+      --hot-pink: #FF006E;
       --vivid-yellow: #FFE500;
       --black: #111111;
       --white: #FFFFFF;
-      --radius-lg: 22px;
-      --radius-md: 14px;
-      --radius-sm: 10px;
+
+      --radius-md: 12px;
+      --radius-sm: 8px;
     }
 
     * {
@@ -31,89 +34,137 @@
     }
 
     body {
-      font-family: "Noto Sans KR", sans-serif;
-      background: var(--vivid-pink);
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR",
+        -apple-system, BlinkMacSystemFont, sans-serif;
+
+      background: var(--hot-pink);
       color: var(--black);
+
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 12px;
+
+      padding: 18px 12px 30px;
       overflow-x: hidden;
-      letter-spacing: -0.3px;
+
+      position: relative;
     }
+
+    /* =========================
+       BACKGROUND
+    ========================= */
 
     .bg-starburst {
       position: fixed;
       inset: 0;
-      width: 100vw;
-      height: 100vh;
       z-index: 0;
       pointer-events: none;
       overflow: hidden;
     }
 
     .bg-starburst svg {
-      width: 140%;
-      height: 140%;
+      width: 120%;
+      height: 120%;
       position: absolute;
-      top: -20%;
-      left: -20%;
-      opacity: .95;
+      top: -10%;
+      left: -10%;
+      opacity: 1;
     }
+
+    /* =========================
+       HEADER
+    ========================= */
 
     header {
       position: relative;
       z-index: 10;
-      text-align: center;
-      margin: 6px 0 14px;
+
+      width: 100%;
+      max-width: 440px;
+
+      text-align: left;
+
+      margin: 4px 0 16px;
+      padding: 0 6px;
     }
 
     header h1 {
       font-family: "Black Han Sans", sans-serif;
-      font-size: 2.2rem;
+
+      font-size: clamp(2.3rem, 11vw, 4rem);
+      line-height: 0.95;
+
       color: var(--black);
-      letter-spacing: -0.5px;
-      text-shadow: 2px 2px 0 var(--vivid-yellow), -1px -1px 0 var(--white);
-      line-height: 1.1;
+
+      letter-spacing: -2px;
+
+      text-shadow:
+        2px 2px 0 var(--vivid-yellow);
+
+      word-break: keep-all;
     }
 
     header p {
-      font-size: .85rem;
-      font-weight: 800;
+      display: inline-block;
+
+      margin-top: 12px;
+
       background: var(--black);
       color: var(--vivid-yellow);
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-top: 6px;
+
+      font-weight: 900;
+      font-size: 0.82rem;
+
+      padding: 6px 11px;
+
+      border-radius: 3px;
+
+      letter-spacing: -0.3px;
     }
+
+    /* =========================
+       MAIN CARD
+    ========================= */
 
     .app-card {
       position: relative;
       z-index: 10;
+
       width: 100%;
       max-width: 440px;
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(0,0,0,.12);
-      box-shadow: 0 16px 32px rgba(0,0,0,.15);
-      padding: 22px 18px;
-      margin-bottom: 24px;
+
+      background: rgba(255, 255, 255, 0.96);
+
+      border: 3px solid var(--black);
+
+      border-radius: 8px;
+
+      box-shadow:
+        8px 8px 0 rgba(17,17,17,0.9);
+
+      padding: 20px 16px;
+
       display: flex;
       flex-direction: column;
       align-items: center;
+
       min-height: 560px;
     }
 
+    /* =========================
+       STEP
+    ========================= */
+
     .step-view {
       display: none;
+
       width: 100%;
+
       flex-direction: column;
       align-items: center;
-      animation: fadeIn .25s ease-out forwards;
+
+      animation: fadeIn 0.2s ease-out forwards;
     }
 
     .step-view.active {
@@ -123,7 +174,7 @@
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(6px);
+        transform: translateY(5px);
       }
 
       to {
@@ -132,80 +183,137 @@
       }
     }
 
+    /* =========================
+       BUTTON
+    ========================= */
+
     .btn {
-      font-family: "Noto Sans KR", sans-serif;
-      font-weight: 800;
+      font-family: inherit;
+
+      font-weight: 900;
+
       background: var(--vivid-yellow);
       color: var(--black);
-      border: none;
-      padding: 14px 22px;
-      font-size: 1.05rem;
-      border-radius: 40px;
+
+      border: 3px solid var(--black);
+
+      padding: 13px 20px;
+
+      font-size: 1rem;
+
+      border-radius: 5px;
+
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,.12);
+
+      box-shadow: 4px 4px 0 var(--black);
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       gap: 8px;
+
       width: 100%;
       max-width: 320px;
-      transition: transform .15s ease, opacity .15s ease;
+
+      transition: transform 0.1s, box-shadow 0.1s;
     }
 
     .btn:active {
-      transform: scale(.96);
-      opacity: .9;
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--black);
     }
 
     .btn-pink {
-      background: var(--vivid-pink);
+      background: var(--hot-pink);
       color: var(--white);
     }
 
     .btn-disabled {
-      background: #E0E0E0 !important;
-      color: #888 !important;
-      cursor: not-allowed;
+      background: #D8D8D8 !important;
+      color: #777 !important;
+
+      border-color: #999 !important;
+
       box-shadow: none !important;
+
+      cursor: not-allowed;
     }
 
-    .btn-skip-yellow {
-      background: var(--vivid-yellow) !important;
-      color: var(--black) !important;
-      font-weight: 900;
-      font-size: 1.05rem;
-      padding: 12px 20px;
-      margin-top: 14px;
-      border: 1px solid rgba(0,0,0,.1);
-    }
+    /* =========================
+       STEP 1
+    ========================= */
 
     #step-1 {
-      padding: 16px 8px;
+      padding: 25px 8px;
+
       text-align: center;
-      gap: 16px;
+
+      gap: 15px;
     }
 
     .hero-badge {
-      width: 100px;
-      height: 100px;
+      width: 105px;
+      height: 105px;
+
       background: var(--vivid-yellow);
+
+      border: 4px solid var(--black);
+
       border-radius: 50%;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       font-size: 3rem;
-      color: var(--vivid-pink);
-      box-shadow: 0 8px 16px rgba(0,0,0,.1);
+
+      color: var(--hot-pink);
+
+      box-shadow: 5px 5px 0 var(--black);
+
+      margin-bottom: 5px;
     }
+
+    #step-1 h2 {
+      font-family: "Black Han Sans", sans-serif;
+
+      font-size: 1.65rem;
+
+      line-height: 1.1;
+    }
+
+    #step-1 p {
+      font-size: 0.9rem;
+
+      color: #333;
+
+      line-height: 1.5;
+
+      font-weight: 600;
+    }
+
+    /* =========================
+       CAMERA
+    ========================= */
 
     .camera-box {
       position: relative;
+
       width: 100%;
+
       aspect-ratio: 4 / 3;
+
       background: var(--black);
-      border-radius: var(--radius-md);
+
+      border: 3px solid var(--black);
+
+      border-radius: 5px;
+
       overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,.15);
+
+      box-shadow: 5px 5px 0 var(--hot-pink);
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -214,45 +322,68 @@
     #webcam {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
       transform: scaleX(-1);
+
       display: block;
     }
 
     .camera-guide-box {
       position: absolute;
+
       inset: 0;
-      border: 1.5px dashed rgba(255,255,255,.4);
+
+      border: 2px dashed rgba(255,255,255,0.55);
+
       pointer-events: none;
-      margin: 10px;
-      border-radius: var(--radius-sm);
+
+      margin: 12px;
+
+      border-radius: 3px;
     }
 
     .center-timer-overlay {
       position: absolute;
+
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+
+      transform: translate(-50%, -50%);
+
       pointer-events: none;
+
       z-index: 5;
     }
 
     .center-timer-overlay span {
-      font-family: Fredoka, sans-serif;
-      font-size: 7.5rem;
-      font-weight: 900;
-      color: rgba(255,255,255,.65);
-      text-shadow: 0 4px 16px rgba(0,0,0,.25);
+      font-family: "Fredoka", sans-serif;
+
+      font-size: 7rem;
+
+      font-weight: 700;
+
+      color: rgba(255,255,255,0.65);
+
+      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
       line-height: 1;
     }
 
     .flash-overlay {
       position: absolute;
+
       inset: 0;
+
       background: white;
+
       opacity: 0;
+
       pointer-events: none;
-      transition: opacity .08s ease-out;
+
+      transition: opacity 0.08s;
+
       z-index: 10;
     }
 
@@ -261,101 +392,177 @@
     }
 
     .status-badge {
-      font-weight: 800;
+      font-weight: 900;
+
       margin-top: 14px;
-      font-size: 1.05rem;
-      background: var(--vivid-pink);
-      color: white;
-      padding: 6px 18px;
-      border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.1);
+
+      font-size: 1rem;
+
+      background: var(--black);
+
+      color: var(--vivid-yellow);
+
+      padding: 7px 18px;
+
+      border-radius: 3px;
     }
+
+    .btn-skip-yellow {
+      margin-top: 12px;
+
+      background: var(--vivid-yellow);
+
+      color: var(--black);
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
 
     .section-title {
       width: 100%;
+
       text-align: left;
-      margin-bottom: 10px;
+
+      margin-bottom: 12px;
+
+      border-left: 6px solid var(--hot-pink);
+
+      padding-left: 10px;
     }
 
     .section-title h3 {
-      font-weight: 800;
-      font-size: 1.2rem;
+      font-weight: 900;
+
+      font-size: 1.15rem;
     }
 
     .section-title p {
-      font-size: .82rem;
+      font-size: 0.82rem;
+
       color: #666;
+
       font-weight: 600;
-      margin-top: 2px;
+
+      margin-top: 3px;
     }
+
+    /* =========================
+       SHOTS
+    ========================= */
 
     .shots-grid {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+
+      grid-template-columns: repeat(3, 1fr);
+
       gap: 8px;
+
       width: 100%;
+
       margin-bottom: 12px;
     }
 
     .shot-card {
       position: relative;
+
       aspect-ratio: 4 / 3;
+
       background: #eee;
-      border-radius: var(--radius-sm);
+
+      border-radius: 4px;
+
       overflow: hidden;
+
       cursor: pointer;
-      border: 1px solid rgba(0,0,0,.1);
-      transition: transform .15s ease;
+
+      border: 2px solid rgba(0,0,0,0.15);
+
+      transition: transform 0.1s;
     }
 
     .shot-card img {
       width: 100%;
       height: 100%;
+
       object-fit: cover;
+
+      display: block;
     }
 
     .shot-card.selected {
-      border: 2.5px solid var(--vivid-pink);
-      transform: scale(.96);
+      border: 4px solid var(--hot-pink);
+
+      transform: scale(0.96);
     }
 
-    .badge-num {
+    .shot-card .badge-num {
       position: absolute;
+
       top: 4px;
       left: 4px;
-      background: var(--vivid-pink);
-      color: white;
-      width: 22px;
-      height: 22px;
+
+      background: var(--hot-pink);
+
+      color: var(--white);
+
+      width: 23px;
+      height: 23px;
+
       border-radius: 50%;
-      font-family: Fredoka, sans-serif;
-      font-size: .8rem;
+
+      border: 2px solid var(--black);
+
+      font-family: "Fredoka", sans-serif;
+
+      font-size: 0.8rem;
+
       font-weight: 900;
+
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    /* =========================
+       PICKERS
+    ========================= */
+
     .picker-box {
       width: 100%;
+
       background: var(--vivid-yellow);
+
       padding: 10px 12px;
-      border-radius: var(--radius-md);
+
+      border: 2px solid var(--black);
+
+      border-radius: 5px;
+
       margin-bottom: 10px;
     }
 
     .picker-box label {
       display: block;
-      font-weight: 800;
-      font-size: .9rem;
-      margin-bottom: 6px;
+
+      font-weight: 900;
+
+      font-size: 0.88rem;
+
+      margin-bottom: 7px;
+
+      color: var(--black);
     }
 
     .picker-scroll {
       display: flex;
-      gap: 8px;
+
+      gap: 7px;
+
       overflow-x: auto;
+
       padding-bottom: 2px;
+
       scrollbar-width: none;
     }
 
@@ -364,111 +571,177 @@
     }
 
     .chip-btn {
-      background: white;
+      background: var(--white);
+
       color: var(--black);
-      border: none;
-      padding: 6px 14px;
-      border-radius: 20px;
+
+      border: 2px solid var(--black);
+
+      padding: 6px 12px;
+
+      border-radius: 3px;
+
       cursor: pointer;
-      font-weight: 700;
-      font-size: .82rem;
+
+      font-weight: 800;
+
+      font-size: 0.78rem;
+
       white-space: nowrap;
-      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
     }
 
     .chip-btn.active {
-      background: var(--vivid-pink);
-      color: white;
+      background: var(--hot-pink);
+
+      color: var(--white);
+
+      border-color: var(--black);
     }
+
+    /* =========================
+       CANVAS
+    ========================= */
 
     .canvas-preview-holder {
       width: 100%;
+
       display: flex;
+
       justify-content: center;
-      margin: 12px 0;
+
+      margin: 14px 0;
     }
 
     #strip-preview {
-      border-radius: 8px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.15);
-      max-height: 380px;
+      border-radius: 3px;
+
+      border: 3px solid var(--black);
+
+      box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
+
+      max-height: 410px;
+
       width: auto;
+
       max-width: 100%;
+
+      height: auto;
     }
+
+    /* =========================
+       FINAL
+    ========================= */
 
     .progress-track {
       width: 100%;
+
       height: 12px;
+
       background: #eee;
-      border-radius: 10px;
+
+      border: 2px solid var(--black);
+
+      border-radius: 3px;
+
       overflow: hidden;
+
       margin: 16px 0;
     }
 
     .progress-fill {
       height: 100%;
-      width: 0;
-      background: var(--vivid-pink);
-      transition: width .2s ease;
+
+      width: 0%;
+
+      background: var(--hot-pink);
+
+      transition: width 0.2s ease;
     }
 
     .result-actions {
       display: flex;
+
       flex-direction: column;
+
       gap: 10px;
+
       width: 100%;
+
       align-items: center;
+
       margin-top: 14px;
-    }
-
-    @media (max-width: 380px) {
-      header h1 {
-        font-size: 1.9rem;
-      }
-
-      .app-card {
-        padding: 18px 12px;
-      }
-
-      .center-timer-overlay span {
-        font-size: 6rem;
-      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- =========================
+       BACKGROUND
+  ========================= -->
+
   <div class="bg-starburst">
     <svg viewBox="0 0 500 500" preserveAspectRatio="none">
       <path
-        d="M250,0 L275,170 L430,70 L340,210 L500,250 L340,290 L430,430 L275,330 L250,500 L225,330 L70,430 L160,290 L0,250 L160,210 L70,70 L225,170 Z"
+        d="
+          M250,0
+          L285,165
+          L430,70
+          L345,210
+          L500,250
+          L345,290
+          L430,430
+          L285,335
+          L250,500
+          L215,335
+          L70,430
+          L155,290
+          L0,250
+          L155,210
+          L70,70
+          L215,165
+          Z
+        "
         fill="#FFE500"
       />
     </svg>
   </div>
 
+  <!-- =========================
+       HEADER
+  ========================= -->
+
   <header>
-    <h1>행복을 쫓는 우리에게</h1>
-    <p>행운의 네잎보단 행복의 세잎 🍀</p>
+    <h1>행복을 쫓는<br>우리에게</h1>
+
+    <p>
+      행운의 네잎보단 행복의 세잎
+    </p>
   </header>
+
+  <!-- =========================
+       APP
+  ========================= -->
 
   <div class="app-card">
 
     <!-- STEP 1 -->
+
     <div id="step-1" class="step-view active">
 
       <div class="hero-badge">
         <i class="fa-solid fa-camera"></i>
       </div>
 
-      <h2 style="font-family:'Black Han Sans',sans-serif;font-size:1.6rem;font-weight:400;">
+      <h2>
         셀카 전면 촬영 준비!
       </h2>
 
-      <p style="font-size:.9rem;color:#444;line-height:1.45;font-weight:600;margin-bottom:6px;">
+      <p>
         시작 버튼을 누르면 6회 촬영이 자동 진행됩니다.<br>
-        대기가 길다면 <strong>"⚡ 3초후 바로 찍기"</strong>를 터치해 주세요!
+        대기가 길다면 <strong>"⚡ 3초후 바로 찍기"</strong>를 눌러주세요.
       </p>
 
       <button
@@ -483,6 +756,7 @@
 
 
     <!-- STEP 2 -->
+
     <div id="step-2" class="step-view">
 
       <div class="camera-box">
@@ -500,77 +774,91 @@
           <span id="timer">8</span>
         </div>
 
-        <div id="flash" class="flash-overlay"></div>
+        <div
+          id="flash"
+          class="flash-overlay"
+        ></div>
 
       </div>
 
       <div class="status-badge">
-        <span id="capture-count">1</span> / 6 번째 촬영 중
+        <span id="capture-count">1</span>
+        / 6 번째 촬영 중
       </div>
 
       <button
         class="btn btn-skip-yellow"
         onclick="playSound('pop'); skipTo3Sec()"
       >
-        <i class="fa-solid fa-bolt-lightning"></i>
-        ⚡ 3초후 바로 찍기!
+        <i class="fa-solid fa-bolt"></i>
+        3초후 바로 찍기!
       </button>
 
     </div>
 
 
     <!-- STEP 3 -->
+
     <div id="step-3" class="step-view">
 
       <div class="section-title">
-        <h3>1. 사진 4장 선택 (순서대로 배치)</h3>
-        <p>촬영된 6장 중 마음에 드는 4장을 선택하세요.</p>
+        <h3>
+          1. 사진 4장 선택
+        </h3>
+
+        <p>
+          촬영된 6장 중 마음에 드는 4장을 순서대로 선택하세요.
+        </p>
       </div>
 
-      <div class="shots-grid" id="shots-grid"></div>
+      <div
+        class="shots-grid"
+        id="shots-grid"
+      ></div>
 
 
       <!-- FILTER -->
+
       <div class="picker-box">
 
         <label>
           <i class="fa-solid fa-wand-magic-sparkles"></i>
-          필터 효과 선택
+          필터 효과
         </label>
 
         <div class="picker-scroll">
 
           <button
             class="chip-btn active"
-            onclick="playSound('pop'); setFilter('normal',this)"
+            onclick="playSound('pop'); setFilter('normal', this)"
           >
             원본
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFilter('vivid',this)"
+            onclick="playSound('pop'); setFilter('vivid', this)"
           >
             비비드
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFilter('bright',this)"
+            onclick="playSound('pop'); setFilter('bright', this)"
           >
             화사하게
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFilter('bw',this)"
+            onclick="playSound('pop'); setFilter('bw', this)"
           >
             흑백
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFilter('retro',this)"
+            onclick="playSound('pop'); setFilter('retro', this)"
           >
             빈티지
           </button>
@@ -580,42 +868,40 @@
 
 
       <!-- FRAME COLOR -->
-      <div
-        class="picker-box"
-        style="background:rgba(229,0,125,.15)"
-      >
+
+      <div class="picker-box">
 
         <label>
           <i class="fa-solid fa-palette"></i>
-          프레임 컬러 선택
+          프레임 컬러
         </label>
 
         <div class="picker-scroll">
 
           <button
             class="chip-btn active"
-            onclick="playSound('pop'); setFrame('#E5007D',this)"
+            onclick="playSound('pop'); setFrame('#FF006E', this)"
           >
-            비비드 핑크
+            핫핑크
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFrame('#FFE500',this)"
+            onclick="playSound('pop'); setFrame('#FFE500', this)"
           >
             비비드 옐로우
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFrame('#FFFFFF',this)"
+            onclick="playSound('pop'); setFrame('#FFFFFF', this)"
           >
             클래식 화이트
           </button>
 
           <button
             class="chip-btn"
-            onclick="playSound('pop'); setFrame('#111111',this)"
+            onclick="playSound('pop'); setFrame('#111111', this)"
           >
             매트 블랙
           </button>
@@ -624,12 +910,16 @@
       </div>
 
 
+      <!-- PREVIEW -->
+
       <div class="canvas-preview-holder">
+
         <canvas
           id="strip-preview"
           width="400"
           height="1200"
         ></canvas>
+
       </div>
 
 
@@ -638,7 +928,6 @@
         class="btn btn-pink btn-disabled"
         onclick="playSound('pop'); proceedToFinal()"
         disabled
-        style="margin-top:8px"
       >
         네컷 완성하기
         <i class="fa-solid fa-arrow-right"></i>
@@ -648,15 +937,22 @@
 
 
     <!-- STEP 4 -->
+
     <div id="step-4" class="step-view">
 
       <h3
         id="result-title"
-        style="font-weight:800;font-size:1.2rem;margin-bottom:8px"
+        style="
+          font-weight:900;
+          font-size:1.2rem;
+          margin-bottom:8px;
+          text-align:center;
+        "
       >
         <i class="fa-solid fa-spinner fa-spin"></i>
         고해상도 이미지 생성 중...
       </h3>
+
 
       <div
         class="progress-track"
@@ -668,15 +964,22 @@
         ></div>
       </div>
 
+
       <div
         id="result-container"
-        style="display:none;margin-top:8px"
+        style="
+          display:none;
+          margin-top:8px;
+          width:100%;
+          text-align:center;
+        "
       ></div>
+
 
       <div
         class="result-actions"
         id="result-actions"
-        style="display:none"
+        style="display:none;"
       >
 
         <button
@@ -684,12 +987,11 @@
           onclick="playSound('pop'); downloadPhoto()"
         >
           <i class="fa-solid fa-download"></i>
-          💾 이미지 저장하기
+          이미지 저장하기
         </button>
 
         <button
           class="btn"
-          style="background:#fff;color:#111"
           onclick="playSound('pop'); resetBooth()"
         >
           <i class="fa-solid fa-rotate-right"></i>
@@ -703,557 +1005,594 @@
   </div>
 
 
+  <!-- Hidden Capture Canvas -->
+
   <canvas
     id="capture-canvas"
-    style="display:none"
+    style="display:none;"
   ></canvas>
 
 
-  <script>
+<script>
 
-    let stream = null;
-    let photos = [];
-    let selectedIndices = [];
+  /* =========================================================
+     VARIABLES
+  ========================================================= */
 
-    let filterType = 'normal';
-    let frameColor = '#E5007D';
+  let stream = null;
 
-    let countdownInterval = null;
-    let currentCountdown = 8;
-    let isShooting = false;
+  let photos = [];
 
-    const TOTAL_SHOTS = 6;
-    const DEFAULT_WAIT_TIME = 8;
+  let selectedIndices = [];
 
-    const video = document.getElementById('webcam');
-    const timerEl = document.getElementById('timer');
-    const flashEl = document.getElementById('flash');
-    const countEl = document.getElementById('capture-count');
-    const shotsGrid = document.getElementById('shots-grid');
+  let filterType = "normal";
 
-    const previewCanvas =
-      document.getElementById('strip-preview');
+  /* HOT PINK */
+  let frameColor = "#FF006E";
 
-    const ctx =
-      previewCanvas.getContext('2d');
+  let countdownInterval = null;
+
+  let currentCountdown = 8;
+
+  const TOTAL_SHOTS = 6;
+
+  const DEFAULT_WAIT_TIME = 8;
 
 
-    /* =========================
-       SOUND
-    ========================= */
+  /* DOM */
 
-    let audioCtx = null;
+  const video =
+    document.getElementById("webcam");
 
-    function getAudioContext() {
+  const timerEl =
+    document.getElementById("timer");
 
-      if (!audioCtx) {
-        audioCtx =
-          new (window.AudioContext ||
-            window.webkitAudioContext)();
-      }
+  const flashEl =
+    document.getElementById("flash");
 
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+  const countEl =
+    document.getElementById("capture-count");
 
-      return audioCtx;
-    }
+  const shotsGrid =
+    document.getElementById("shots-grid");
 
+  const previewCanvas =
+    document.getElementById("strip-preview");
 
-    function playSound(type) {
-
-      try {
-
-        const ac = getAudioContext();
-        const now = ac.currentTime;
-
-        const osc = ac.createOscillator();
-        const gain = ac.createGain();
+  const ctx =
+    previewCanvas.getContext("2d");
 
 
-        if (type === 'pop') {
+  /* =========================================================
+     AUDIO
+  ========================================================= */
 
-          osc.type = 'sine';
+  let audioCtx = null;
 
-          osc.frequency.setValueAtTime(
-            400,
-            now
-          );
+  function getAudioContext() {
 
-          osc.frequency.exponentialRampToValueAtTime(
-            800,
-            now + .08
-          );
+    if (!audioCtx) {
 
-          gain.gain.setValueAtTime(
-            .3,
-            now
-          );
-
-          gain.gain.exponentialRampToValueAtTime(
-            .01,
-            now + .08
-          );
-
-          osc.connect(gain);
-          gain.connect(ac.destination);
-
-          osc.start(now);
-          osc.stop(now + .08);
-
-        }
-
-
-        else if (type === 'tick') {
-
-          osc.type = 'triangle';
-
-          osc.frequency.setValueAtTime(
-            600,
-            now
-          );
-
-          gain.gain.setValueAtTime(
-            .15,
-            now
-          );
-
-          gain.gain.exponentialRampToValueAtTime(
-            .01,
-            now + .06
-          );
-
-          osc.connect(gain);
-          gain.connect(ac.destination);
-
-          osc.start(now);
-          osc.stop(now + .06);
-
-        }
-
-
-        else if (type === 'shutter') {
-
-          osc.type = 'square';
-
-          osc.frequency.setValueAtTime(
-            150,
-            now
-          );
-
-          osc.frequency.exponentialRampToValueAtTime(
-            40,
-            now + .12
-          );
-
-          gain.gain.setValueAtTime(
-            .4,
-            now
-          );
-
-          gain.gain.exponentialRampToValueAtTime(
-            .01,
-            now + .12
-          );
-
-          osc.connect(gain);
-          gain.connect(ac.destination);
-
-          osc.start(now);
-          osc.stop(now + .12);
-        }
-
-      } catch (e) {
-
-        console.log(
-          'Audio unavailable',
-          e
-        );
-
-      }
-    }
-
-
-    /* =========================
-       STEP
-    ========================= */
-
-    function goToStep(step) {
-
-      document
-        .querySelectorAll('.step-view')
-        .forEach(s =>
-          s.classList.remove('active')
-        );
-
-      const target =
-        document.getElementById(`step-${step}`);
-
-      if (target) {
-        target.classList.add('active');
-      }
+      audioCtx =
+        new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
 
     }
 
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
 
-    /* =========================
-       CAMERA
-    ========================= */
+    return audioCtx;
+  }
 
-    async function startCamera() {
 
-      if (
-        !navigator.mediaDevices ||
-        !navigator.mediaDevices.getUserMedia
-      ) {
+  function playSound(type) {
 
-        alert(
-          '이 브라우저에서는 카메라 기능을 사용할 수 없습니다. HTTPS 또는 localhost에서 열어 주세요.'
+    try {
+
+      const ctxAudio =
+        getAudioContext();
+
+      const now =
+        ctxAudio.currentTime;
+
+
+      if (type === "pop") {
+
+        const osc =
+          ctxAudio.createOscillator();
+
+        const gain =
+          ctxAudio.createGain();
+
+        osc.type = "sine";
+
+        osc.frequency.setValueAtTime(
+          400,
+          now
         );
 
-        return;
+        osc.frequency.exponentialRampToValueAtTime(
+          800,
+          now + 0.08
+        );
+
+        gain.gain.setValueAtTime(
+          0.3,
+          now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          0.01,
+          now + 0.08
+        );
+
+        osc.connect(gain);
+
+        gain.connect(
+          ctxAudio.destination
+        );
+
+        osc.start(now);
+
+        osc.stop(now + 0.08);
       }
 
 
-      if (isShooting) return;
+      else if (type === "tick") {
+
+        const osc =
+          ctxAudio.createOscillator();
+
+        const gain =
+          ctxAudio.createGain();
+
+        osc.type = "triangle";
+
+        osc.frequency.setValueAtTime(
+          600,
+          now
+        );
+
+        gain.gain.setValueAtTime(
+          0.15,
+          now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          0.01,
+          now + 0.06
+        );
+
+        osc.connect(gain);
+
+        gain.connect(
+          ctxAudio.destination
+        );
+
+        osc.start(now);
+
+        osc.stop(now + 0.06);
+      }
 
 
-      const constraints = {
+      else if (type === "shutter") {
 
-        video: {
+        const osc =
+          ctxAudio.createOscillator();
 
-          facingMode: 'user',
+        const gain =
+          ctxAudio.createGain();
 
-          width: {
-            ideal: 1280
-          },
+        osc.type = "square";
 
-          height: {
-            ideal: 720
-          }
+        osc.frequency.setValueAtTime(
+          150,
+          now
+        );
 
+        osc.frequency.exponentialRampToValueAtTime(
+          40,
+          now + 0.12
+        );
+
+        gain.gain.setValueAtTime(
+          0.4,
+          now
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+          0.01,
+          now + 0.12
+        );
+
+        osc.connect(gain);
+
+        gain.connect(
+          ctxAudio.destination
+        );
+
+        osc.start(now);
+
+        osc.stop(now + 0.12);
+      }
+
+    }
+
+    catch (e) {
+
+      console.log(
+        "Audio unavailable",
+        e
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     STEP NAVIGATION
+  ========================================================= */
+
+  function goToStep(step) {
+
+    document
+      .querySelectorAll(".step-view")
+      .forEach(s =>
+        s.classList.remove("active")
+      );
+
+    document
+      .getElementById(`step-${step}`)
+      .classList.add("active");
+
+  }
+
+
+  /* =========================================================
+     CAMERA
+  ========================================================= */
+
+  async function startCamera() {
+
+    const constraints = {
+
+      video: {
+
+        facingMode: "user",
+
+        width: {
+          ideal: 1280
         },
 
-        audio: false
+        height: {
+          ideal: 720
+        }
 
-      };
+      },
 
+      audio: false
 
-      try {
-
-        stream =
-          await navigator.mediaDevices
-            .getUserMedia(constraints);
-
-
-        video.srcObject = stream;
-
-        await video.play();
-
-        isShooting = true;
-
-        goToStep(2);
-
-        await runShootingSequence();
-
-      }
+    };
 
 
-      catch (err) {
+    try {
 
-        console.error(
-          'Camera error:',
-          err
-        );
+      stream =
+        await navigator.mediaDevices
+          .getUserMedia(constraints);
 
-        alert(
-          '카메라 권한을 허용해 주세요. 휴대폰에서는 HTTPS로 접속해야 카메라가 작동할 수 있습니다.'
-        );
 
-        isShooting = false;
+      video.srcObject = stream;
 
-      }
+      await video.play();
+
+
+      goToStep(2);
+
+      runShootingSequence();
+
+    }
+
+    catch (err) {
+
+      console.error(
+        "Camera error:",
+        err
+      );
+
+      alert(
+        "카메라 권한을 확인해 주세요.\n브라우저 설정에서 카메라 접근을 허용해야 합니다."
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     SHOOTING
+  ========================================================= */
+
+  async function runShootingSequence() {
+
+    photos = [];
+
+    for (
+      let i = 1;
+      i <= TOTAL_SHOTS;
+      i++
+    ) {
+
+      countEl.textContent = i;
+
+      await waitTimer(
+        DEFAULT_WAIT_TIME
+      );
+
+      flashScreen();
+
+      playSound("shutter");
+
+      captureCurrentFrame();
+
+      await new Promise(
+        res =>
+          setTimeout(res, 800)
+      );
 
     }
 
 
-    async function runShootingSequence() {
+    if (stream) {
 
-      photos = [];
-
-
-      for (
-        let i = 1;
-        i <= TOTAL_SHOTS;
-        i++
-      ) {
-
-        countEl.textContent = i;
-
-        await waitTimer(
-          DEFAULT_WAIT_TIME
+      stream
+        .getTracks()
+        .forEach(track =>
+          track.stop()
         );
-
-
-        flashScreen();
-
-        playSound('shutter');
-
-        captureCurrentFrame();
-
-
-        await new Promise(
-          resolve =>
-            setTimeout(resolve, 800)
-        );
-
-      }
-
-
-      stopCamera();
-
-      isShooting = false;
-
-      initSelectionStep();
 
     }
 
 
-    function waitTimer(seconds) {
+    initSelectionStep();
 
-      return new Promise(resolve => {
-
-        currentCountdown = seconds;
-
-        timerEl.textContent =
-          currentCountdown;
-
-        playSound('tick');
+  }
 
 
-        clearInterval(
-          countdownInterval
-        );
+  /* =========================================================
+     TIMER
+  ========================================================= */
+
+  function waitTimer(seconds) {
+
+    return new Promise(resolve => {
+
+      currentCountdown = seconds;
+
+      timerEl.textContent =
+        currentCountdown;
+
+      playSound("tick");
 
 
-        countdownInterval =
-          setInterval(() => {
-
-            currentCountdown--;
-
-
-            if (
-              currentCountdown > 0
-            ) {
-
-              timerEl.textContent =
-                currentCountdown;
-
-              playSound('tick');
-
-            }
-
-            else {
-
-              clearInterval(
-                countdownInterval
-              );
-
-              timerEl.textContent = '0';
-
-              resolve();
-
-            }
-
-          }, 1000);
-
-      });
-
-    }
+      clearInterval(
+        countdownInterval
+      );
 
 
-    function skipTo3Sec() {
+      countdownInterval =
+        setInterval(() => {
 
-      if (
-        !isShooting ||
-        currentCountdown <= 3
-      ) {
-        return;
-      }
+          currentCountdown--;
 
+
+          if (
+            currentCountdown > 0
+          ) {
+
+            timerEl.textContent =
+              currentCountdown;
+
+            playSound("tick");
+
+          }
+
+          else {
+
+            clearInterval(
+              countdownInterval
+            );
+
+            resolve();
+
+          }
+
+        }, 1000);
+
+    });
+
+  }
+
+
+  function skipTo3Sec() {
+
+    if (currentCountdown > 3) {
 
       currentCountdown = 3;
 
       timerEl.textContent =
         currentCountdown;
 
-      playSound('tick');
+      playSound("tick");
 
     }
 
+  }
 
-    function flashScreen() {
 
-      flashEl.classList.add(
-        'active'
+  function flashScreen() {
+
+    flashEl.classList.add(
+      "active"
+    );
+
+    setTimeout(() => {
+
+      flashEl.classList.remove(
+        "active"
       );
 
-      setTimeout(
-        () =>
-          flashEl.classList.remove(
-            'active'
-          ),
-        100
+    }, 100);
+
+  }
+
+
+  /* =========================================================
+     CAPTURE
+  ========================================================= */
+
+  function captureCurrentFrame() {
+
+    const snapCanvas =
+      document.getElementById(
+        "capture-canvas"
       );
 
-    }
+    snapCanvas.width =
+      video.videoWidth || 640;
+
+    snapCanvas.height =
+      video.videoHeight || 480;
 
 
-    function captureCurrentFrame() {
-
-      const snapCanvas =
-        document.getElementById(
-          'capture-canvas'
-        );
+    const snapCtx =
+      snapCanvas.getContext("2d");
 
 
-      snapCanvas.width =
-        video.videoWidth || 640;
+    snapCtx.save();
 
-      snapCanvas.height =
-        video.videoHeight || 480;
+    snapCtx.translate(
+      snapCanvas.width,
+      0
+    );
 
+    snapCtx.scale(
+      -1,
+      1
+    );
 
-      const snapCtx =
-        snapCanvas.getContext('2d');
+    snapCtx.drawImage(
+      video,
+      0,
+      0,
+      snapCanvas.width,
+      snapCanvas.height
+    );
 
-
-      /*
-        화면에서는 좌우 반전으로 보이지만
-        저장되는 사진은 자연스러운 방향
-      */
-
-      snapCtx.save();
-
-      snapCtx.translate(
-        snapCanvas.width,
-        0
-      );
-
-      snapCtx.scale(
-        -1,
-        1
-      );
-
-      snapCtx.drawImage(
-        video,
-        0,
-        0,
-        snapCanvas.width,
-        snapCanvas.height
-      );
-
-      snapCtx.restore();
+    snapCtx.restore();
 
 
-      photos.push(
-        snapCanvas.toDataURL(
-          'image/jpeg',
-          .95
-        )
-      );
+    photos.push(
+      snapCanvas.toDataURL(
+        "image/jpeg",
+        0.95
+      )
+    );
 
-    }
-
-
-    /* =========================
-       PHOTO SELECTION
-    ========================= */
-
-    function initSelectionStep() {
-
-      goToStep(3);
-
-      shotsGrid.innerHTML = '';
-
-      selectedIndices = [
-        0,
-        1,
-        2,
-        3
-      ];
+  }
 
 
-      photos.forEach(
-        (src, index) => {
+  /* =========================================================
+     SELECTION
+  ========================================================= */
 
-          const card =
-            document.createElement(
-              'div'
-            );
+  function initSelectionStep() {
 
-          card.className =
-            'shot-card';
+    goToStep(3);
 
+    shotsGrid.innerHTML = "";
 
-          card.onclick = () => {
-
-            playSound('pop');
-
-            toggleSelectShot(
-              index
-            );
-
-          };
+    selectedIndices = [
+      0,
+      1,
+      2,
+      3
+    ];
 
 
-          const img =
-            document.createElement(
-              'img'
-            );
+    photos.forEach(
+      (src, index) => {
 
-          img.src = src;
-
-          img.alt =
-            `${index + 1}번 촬영 사진`;
-
-
-          card.appendChild(img);
-
-          shotsGrid.appendChild(
-            card
+        const card =
+          document.createElement(
+            "div"
           );
 
-        }
-      );
+        card.className =
+          "shot-card";
 
 
-      renderSelectionGridUI();
+        card.onclick = () => {
 
-      renderStripCanvas();
+          playSound("pop");
 
-    }
+          toggleSelectShot(
+            index
+          );
 
-
-    function toggleSelectShot(idx) {
-
-      const foundIdx =
-        selectedIndices.indexOf(
-          idx
-        );
+        };
 
 
-      if (foundIdx > -1) {
+        const img =
+          document.createElement(
+            "img"
+          );
 
-        selectedIndices.splice(
-          foundIdx,
-          1
+        img.src = src;
+
+
+        card.appendChild(img);
+
+        shotsGrid.appendChild(
+          card
         );
 
       }
+    );
 
 
-      else if (
+    renderSelectionGridUI();
+
+    renderStripCanvas();
+
+  }
+
+
+  function toggleSelectShot(idx) {
+
+    const foundIdx =
+      selectedIndices.indexOf(
+        idx
+      );
+
+
+    if (foundIdx > -1) {
+
+      selectedIndices.splice(
+        foundIdx,
+        1
+      );
+
+    }
+
+    else {
+
+      if (
         selectedIndices.length < 4
       ) {
 
@@ -1263,962 +1602,768 @@
 
       }
 
-
       else {
 
         alert(
-          '4장이 모두 선택되었습니다.'
+          "4장이 모두 선택되었습니다."
         );
 
       }
 
-
-      renderSelectionGridUI();
-
-      renderStripCanvas();
-
     }
 
 
-    function renderSelectionGridUI() {
+    renderSelectionGridUI();
 
-      const cards =
-        shotsGrid.querySelectorAll(
-          '.shot-card'
-        );
+    renderStripCanvas();
 
-
-      cards.forEach(
-        (card, idx) => {
-
-          const pos =
-            selectedIndices.indexOf(
-              idx
-            );
+  }
 
 
-          const oldBadge =
-            card.querySelector(
-              '.badge-num'
-            );
+  function renderSelectionGridUI() {
 
-
-          if (oldBadge) {
-            oldBadge.remove();
-          }
-
-
-          if (pos > -1) {
-
-            card.classList.add(
-              'selected'
-            );
-
-
-            const badge =
-              document.createElement(
-                'div'
-              );
-
-            badge.className =
-              'badge-num';
-
-            badge.textContent =
-              pos + 1;
-
-
-            card.appendChild(
-              badge
-            );
-
-          }
-
-          else {
-
-            card.classList.remove(
-              'selected'
-            );
-
-          }
-
-        }
+    const cards =
+      shotsGrid.querySelectorAll(
+        ".shot-card"
       );
 
 
-      const btnSubmit =
-        document.getElementById(
-          'btn-submit'
-        );
-
-
-      const complete =
-        selectedIndices.length === 4;
-
-
-      btnSubmit.disabled =
-        !complete;
-
-
-      btnSubmit.classList.toggle(
-        'btn-disabled',
-        !complete
-      );
-
-    }
-
-
-    /* =========================
-       FILTER / FRAME
-    ========================= */
-
-    function setFilter(
-      type,
-      btn
-    ) {
-
-      filterType = type;
-
-
-      btn.parentElement
-        .querySelectorAll(
-          '.chip-btn'
-        )
-        .forEach(
-          b =>
-            b.classList.remove(
-              'active'
-            )
-        );
-
-
-      btn.classList.add(
-        'active'
-      );
-
-
-      renderStripCanvas();
-
-    }
-
-
-    function setFrame(
-      color,
-      btn
-    ) {
-
-      frameColor = color;
-
-
-      btn.parentElement
-        .querySelectorAll(
-          '.chip-btn'
-        )
-        .forEach(
-          b =>
-            b.classList.remove(
-              'active'
-            )
-        );
-
-
-      btn.classList.add(
-        'active'
-      );
-
-
-      renderStripCanvas();
-
-    }
-
-
-    /* =========================
-       THREE LEAF CLOVER
-    ========================= */
-
-    function drawCloverGraphic(
-      ctx,
-      centerX,
-      centerY,
-      scale = 1
-    ) {
-
-      ctx.save();
-
-      ctx.translate(
-        centerX,
-        centerY
-      );
-
-      ctx.fillStyle =
-        '#111111';
-
-
-      const leafOffset =
-        38 * scale;
-
-      const leafSize =
-        32 * scale;
-
-
-      /*
-        행복의 세잎 클로버
-        하트 모양 잎 3개
-      */
-
-      drawHeartLeaf(
-        ctx,
-        0,
-        -leafOffset,
-        leafSize,
-        0
-      );
-
-
-      drawHeartLeaf(
-        ctx,
-        -leafOffset,
-        0,
-        leafSize,
-        -Math.PI / 2
-      );
-
-
-      drawHeartLeaf(
-        ctx,
-        leafOffset,
-        0,
-        leafSize,
-        Math.PI / 2
-      );
-
-
-      /* 줄기 */
-
-      ctx.beginPath();
-
-      ctx.lineWidth =
-        14 * scale;
-
-      ctx.strokeStyle =
-        '#111111';
-
-      ctx.lineCap =
-        'round';
-
-
-      ctx.moveTo(
-        0,
-        10 * scale
-      );
-
-
-      ctx.quadraticCurveTo(
-        12 * scale,
-        45 * scale,
-        28 * scale,
-        65 * scale
-      );
-
-
-      ctx.stroke();
-
-      ctx.restore();
-
-    }
-
-
-    function drawHeartLeaf(
-      ctx,
-      cx,
-      cy,
-      size,
-      angle
-    ) {
-
-      ctx.save();
-
-      ctx.translate(
-        cx,
-        cy
-      );
-
-      ctx.rotate(
-        angle
-      );
-
-
-      ctx.beginPath();
-
-
-      const topCurveHeight =
-        size * .7;
-
-
-      ctx.moveTo(
-        0,
-        size * .4
-      );
-
-
-      ctx.bezierCurveTo(
-        -size * .9,
-        -size * .2,
-        -size * .8,
-        -size * .95,
-        0,
-        -topCurveHeight
-      );
-
-
-      ctx.bezierCurveTo(
-        size * .8,
-        -size * .95,
-        size * .9,
-        -size * .2,
-        0,
-        size * .4
-      );
-
-
-      ctx.fill();
-
-      ctx.restore();
-
-    }
-
-
-    /* =========================
-       STRIP CANVAS
-    ========================= */
-
-    function renderStripCanvas() {
-
-      const w = 400;
-      const h = 1200;
-
-
-      previewCanvas.width =
-        w;
-
-      previewCanvas.height =
-        h;
-
-
-      ctx.filter =
-        'none';
-
-      ctx.globalAlpha =
-        1;
-
-
-      /* 배경 */
-
-      ctx.fillStyle =
-        frameColor;
-
-      ctx.fillRect(
-        0,
-        0,
-        w,
-        h
-      );
-
-
-      /* 사진 */
-
-      const margin = 20;
-      const photoW =
-        w - margin * 2;
-
-      const photoH = 220;
-      const gap = 16;
-      const startY = 28;
-
-
-      for (
-        let i = 0;
-        i < 4;
-        i++
-      ) {
-
-        const y =
-          startY +
-          i *
-            (photoH + gap);
-
-
-        if (
-          i <
-            selectedIndices.length &&
-          photos[
-            selectedIndices[i]
-          ]
-        ) {
-
-          const imgIndex =
-            selectedIndices[i];
-
-
-          const img =
-            new Image();
-
-
-          img.onload =
-            () =>
-              renderStripCanvas();
-
-
-          img.src =
-            photos[imgIndex];
-
-
-          if (!img.complete) {
-            continue;
-          }
-
-
-          ctx.save();
-
-
-          applyFilterEffects(
-            ctx,
-            filterType
+    cards.forEach(
+      (card, idx) => {
+
+        const pos =
+          selectedIndices.indexOf(
+            idx
           );
 
 
-          const targetAspect =
-            photoW / photoH;
-
-
-          let sx = 0;
-          let sy = 0;
-
-          let sW =
-            img.naturalWidth ||
-            640;
-
-          let sH =
-            img.naturalHeight ||
-            480;
-
-
-          if (
-            sW / sH >
-            targetAspect
-          ) {
-
-            sW =
-              sH *
-              targetAspect;
-
-            sx =
-              (
-                (
-                  img.naturalWidth ||
-                  640
-                ) -
-                sW
-              ) / 2;
-
-          }
-
-
-          else {
-
-            sH =
-              sW /
-              targetAspect;
-
-            sy =
-              (
-                (
-                  img.naturalHeight ||
-                  480
-                ) -
-                sH
-              ) / 2;
-
-          }
-
-
-          ctx.drawImage(
-            img,
-            sx,
-            sy,
-            sW,
-            sH,
-            margin,
-            y,
-            photoW,
-            photoH
+        const oldBadge =
+          card.querySelector(
+            ".badge-num"
           );
 
 
-          ctx.restore();
-
+        if (oldBadge) {
+          oldBadge.remove();
         }
 
+
+        if (pos > -1) {
+
+          card.classList.add(
+            "selected"
+          );
+
+
+          const badge =
+            document.createElement(
+              "div"
+            );
+
+          badge.className =
+            "badge-num";
+
+          badge.textContent =
+            pos + 1;
+
+          card.appendChild(
+            badge
+          );
+
+        }
 
         else {
 
-          ctx.fillStyle =
-            'rgba(0,0,0,.08)';
-
-
-          ctx.fillRect(
-            margin,
-            y,
-            photoW,
-            photoH
-          );
-
-
-          ctx.fillStyle =
-            '#888';
-
-
-          ctx.font =
-            'bold 16px "Noto Sans KR"';
-
-
-          ctx.textAlign =
-            'center';
-
-
-          ctx.fillText(
-            `${i + 1}번 선택 안됨`,
-            w / 2,
-            y + photoH / 2
+          card.classList.remove(
+            "selected"
           );
 
         }
 
       }
-
-
-      /* 하단 */
-
-      const footerY =
-        startY +
-        4 *
-          (photoH + gap) +
-        12;
-
-
-      const darkFrame =
-        frameColor === '#FFE500' ||
-        frameColor === '#FFFFFF';
-
-
-      const primaryTextColor =
-        darkFrame
-          ? '#111111'
-          : '#FFFFFF';
-
-
-      const subTextColor =
-        darkFrame
-          ? '#E5007D'
-          : '#FFFFFF';
-
-
-      ctx.filter =
-        'none';
-
-      ctx.globalAlpha =
-        1;
-
-      ctx.textAlign =
-        'center';
-
-
-      /* 제목 */
-
-      ctx.fillStyle =
-        primaryTextColor;
-
-
-      ctx.font =
-        '900 26px "Black Han Sans", "Noto Sans KR", sans-serif';
-
-
-      ctx.fillText(
-        '행복을 쫓는 우리에게',
-        w / 2,
-        footerY + 36
-      );
-
-
-      /* 부제 */
-
-      ctx.fillStyle =
-        subTextColor;
-
-
-      ctx.font =
-        '700 13px "Noto Sans KR", sans-serif';
-
-
-      ctx.fillText(
-        '행운의 네잎보단 행복의 세잎',
-        w / 2,
-        footerY + 62
-      );
-
-
-      /* 날짜 */
-
-      const now =
-        new Date();
-
-
-      const todayFormatted =
-        `${now.getFullYear()}.${String(
-          now.getMonth() + 1
-        ).padStart(2,'0')}.${String(
-          now.getDate()
-        ).padStart(2,'0')}`;
-
-
-      ctx.fillStyle =
-        primaryTextColor;
-
-
-      ctx.font =
-        '500 12px "Noto Sans KR", sans-serif';
-
-
-      ctx.globalAlpha =
-        .85;
-
-
-      ctx.fillText(
-        todayFormatted,
-        w / 2,
-        footerY + 84
-      );
-
-
-      ctx.globalAlpha =
-        1;
-
-
-      /* 오른쪽 아래 세잎 클로버 */
-
-      drawCloverGraphic(
-        ctx,
-        w - 10,
-        h - 10,
-        1.35
-      );
-
-
-      ctx.filter =
-        'none';
-
-    }
-
-
-    /* =========================
-       FILTER EFFECT
-    ========================= */
-
-    function applyFilterEffects(
-      ctx,
-      type
-    ) {
-
-      switch (type) {
-
-        case 'vivid':
-
-          ctx.filter =
-            'saturate(160%) contrast(110%) brightness(105%)';
-
-          break;
-
-
-        case 'bright':
-
-          ctx.filter =
-            'brightness(112%) contrast(105%) saturate(108%)';
-
-          break;
-
-
-        case 'bw':
-
-          ctx.filter =
-            'grayscale(100%) contrast(120%)';
-
-          break;
-
-
-        case 'retro':
-
-          ctx.filter =
-            'sepia(40%) hue-rotate(-15deg) saturate(125%)';
-
-          break;
-
-
-        default:
-
-          ctx.filter =
-            'none';
-
-      }
-
-    }
-
-
-    /* =========================
-       FINAL
-    ========================= */
-
-    function proceedToFinal() {
-
-      if (
-        selectedIndices.length !== 4
-      ) {
-        return;
-      }
-
-
-      goToStep(4);
-
-
-      const fill =
-        document.getElementById(
-          'progress-fill'
-        );
-
-
-      const title =
-        document.getElementById(
-          'result-title'
-        );
-
-
-      const container =
-        document.getElementById(
-          'result-container'
-        );
-
-
-      const actions =
-        document.getElementById(
-          'result-actions'
-        );
-
-
-      const track =
-        document.getElementById(
-          'progress-track'
-        );
-
-
-      fill.style.width =
-        '0%';
-
-
-      track.style.display =
-        'block';
-
-
-      container.style.display =
-        'none';
-
-
-      actions.style.display =
-        'none';
-
-
-      let val = 0;
-
-
-      const timer =
-        setInterval(() => {
-
-          val += 25;
-
-
-          fill.style.width =
-            val + '%';
-
-
-          if (
-            val >= 100
-          ) {
-
-            clearInterval(
-              timer
-            );
-
-
-            track.style.display =
-              'none';
-
-
-            title.innerHTML =
-              '🎉 네컷 사진이 완성되었습니다!';
-
-
-            container.innerHTML =
-              '';
-
-
-            const finalCanvas =
-              document.createElement(
-                'canvas'
-              );
-
-
-            finalCanvas.width =
-              previewCanvas.width;
-
-
-            finalCanvas.height =
-              previewCanvas.height;
-
-
-            finalCanvas.style.maxHeight =
-              '380px';
-
-
-            finalCanvas.style.maxWidth =
-              '100%';
-
-
-            finalCanvas.style.borderRadius =
-              '10px';
-
-
-            finalCanvas.style.boxShadow =
-              '0 8px 24px rgba(0,0,0,.15)';
-
-
-            finalCanvas
-              .getContext('2d')
-              .drawImage(
-                previewCanvas,
-                0,
-                0
-              );
-
-
-            container.appendChild(
-              finalCanvas
-            );
-
-
-            container.style.display =
-              'block';
-
-
-            actions.style.display =
-              'flex';
-
-          }
-
-        }, 120);
-
-    }
-
-
-    /* =========================
-       DOWNLOAD
-    ========================= */
-
-    function downloadPhoto() {
-
-      const now =
-        new Date();
-
-
-      const dateStr =
-        `${now.getFullYear()}${String(
-          now.getMonth() + 1
-        ).padStart(2,'0')}${String(
-          now.getDate()
-        ).padStart(2,'0')}`;
-
-
-      const link =
-        document.createElement(
-          'a'
-        );
-
-
-      link.download =
-        `행복을_쫓는_우리에게_${dateStr}.png`;
-
-
-      link.href =
-        previewCanvas.toDataURL(
-          'image/png'
-        );
-
-
-      document.body.appendChild(
-        link
-      );
-
-
-      link.click();
-
-
-      link.remove();
-
-    }
-
-
-    /* =========================
-       CAMERA STOP / RESET
-    ========================= */
-
-    function stopCamera() {
-
-      clearInterval(
-        countdownInterval
-      );
-
-
-      if (stream) {
-
-        stream
-          .getTracks()
-          .forEach(
-            track =>
-              track.stop()
-          );
-
-        stream = null;
-
-      }
-
-
-      video.srcObject =
-        null;
-
-    }
-
-
-    function resetBooth() {
-
-      stopCamera();
-
-      location.reload();
-
-    }
-
-
-    window.addEventListener(
-      'beforeunload',
-      stopCamera
     );
 
-  </script>
+
+    const btnSubmit =
+      document.getElementById(
+        "btn-submit"
+      );
+
+
+    if (
+      selectedIndices.length === 4
+    ) {
+
+      btnSubmit.disabled =
+        false;
+
+      btnSubmit.classList.remove(
+        "btn-disabled"
+      );
+
+    }
+
+    else {
+
+      btnSubmit.disabled =
+        true;
+
+      btnSubmit.classList.add(
+        "btn-disabled"
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     FILTER
+  ========================================================= */
+
+  function setFilter(
+    type,
+    btn
+  ) {
+
+    filterType = type;
+
+
+    btn.parentElement
+      .querySelectorAll(
+        ".chip-btn"
+      )
+      .forEach(
+        b =>
+          b.classList.remove(
+            "active"
+          )
+      );
+
+
+    btn.classList.add(
+      "active"
+    );
+
+
+    renderStripCanvas();
+
+  }
+
+
+  /* =========================================================
+     FRAME
+  ========================================================= */
+
+  function setFrame(
+    color,
+    btn
+  ) {
+
+    frameColor = color;
+
+
+    btn.parentElement
+      .querySelectorAll(
+        ".chip-btn"
+      )
+      .forEach(
+        b =>
+          b.classList.remove(
+            "active"
+          )
+      );
+
+
+    btn.classList.add(
+      "active"
+    );
+
+
+    renderStripCanvas();
+
+  }
+
+
+  /* =========================================================
+     LOAD IMAGE
+     IMPORTANT:
+     Prevents canvas from drawing images
+     before they are loaded.
+  ========================================================= */
+
+  function loadImage(src) {
+
+    return new Promise(
+      resolve => {
+
+        const img =
+          new Image();
+
+        img.onload = () =>
+          resolve(img);
+
+        img.onerror = () =>
+          resolve(null);
+
+        img.src = src;
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     FILTER EFFECT
+  ========================================================= */
+
+  function applyFilterEffects(
+    ctx,
+    type
+  ) {
+
+    switch (type) {
+
+      case "vivid":
+
+        ctx.filter =
+          "saturate(160%) contrast(112%) brightness(105%)";
+
+        break;
+
+
+      case "bright":
+
+        ctx.filter =
+          "brightness(112%) contrast(105%) saturate(108%)";
+
+        break;
+
+
+      case "bw":
+
+        ctx.filter =
+          "grayscale(100%) contrast(120%)";
+
+        break;
+
+
+      case "retro":
+
+        ctx.filter =
+          "sepia(40%) hue-rotate(-15deg) saturate(125%)";
+
+        break;
+
+
+      default:
+
+        ctx.filter =
+          "none";
+
+    }
+
+  }
+
+
+  /* =========================================================
+     CANVAS FRAME
+     NO CLOVER
+  ========================================================= */
+
+  async function renderStripCanvas() {
+
+    const w = 400;
+
+    const h = 1200;
+
+
+    previewCanvas.width = w;
+
+    previewCanvas.height = h;
+
+
+    /* FRAME */
+
+    ctx.fillStyle =
+      frameColor;
+
+    ctx.fillRect(
+      0,
+      0,
+      w,
+      h
+    );
+
+
+    /* PHOTOS */
+
+    const margin = 20;
+
+    const photoW =
+      w - margin * 2;
+
+    const photoH = 220;
+
+    const gap = 16;
+
+    const startY = 28;
+
+
+    for (
+      let i = 0;
+      i < 4;
+      i++
+    ) {
+
+      const y =
+        startY +
+        i *
+        (photoH + gap);
+
+
+      if (
+        i <
+        selectedIndices.length
+      ) {
+
+        const imgIndex =
+          selectedIndices[i];
+
+
+        const img =
+          await loadImage(
+            photos[imgIndex]
+          );
+
+
+        if (!img) continue;
+
+
+        ctx.save();
+
+
+        applyFilterEffects(
+          ctx,
+          filterType
+        );
+
+
+        const targetAspect =
+          photoW / photoH;
+
+
+        let sx = 0;
+
+        let sy = 0;
+
+        let sW =
+          img.width;
+
+        let sH =
+          img.height;
+
+
+        if (
+          sW / sH >
+          targetAspect
+        ) {
+
+          sW =
+            sH *
+            targetAspect;
+
+          sx =
+            (img.width - sW) /
+            2;
+
+        }
+
+        else {
+
+          sH =
+            sW /
+            targetAspect;
+
+          sy =
+            (img.height - sH) /
+            2;
+
+        }
+
+
+        ctx.drawImage(
+          img,
+
+          sx,
+          sy,
+          sW,
+          sH,
+
+          margin,
+          y,
+          photoW,
+          photoH
+        );
+
+
+        ctx.restore();
+
+      }
+
+      else {
+
+        ctx.fillStyle =
+          "rgba(0,0,0,0.08)";
+
+        ctx.fillRect(
+          margin,
+          y,
+          photoW,
+          photoH
+        );
+
+        ctx.fillStyle =
+          "#888";
+
+        ctx.font =
+          "bold 16px Pretendard";
+
+        ctx.textAlign =
+          "center";
+
+        ctx.fillText(
+          `${i + 1}번 선택 안됨`,
+          w / 2,
+          y + photoH / 2
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+       BIGGER TEXT
+    ===================================================== */
+
+    const footerY =
+      startY +
+      4 *
+      (photoH + gap) +
+      12;
+
+
+    let primaryTextColor =
+      "#FFFFFF";
+
+    let subTextColor =
+      "#FFFFFF";
+
+
+    if (
+      frameColor === "#FFE500"
+    ) {
+
+      primaryTextColor =
+        "#111111";
+
+      subTextColor =
+        "#FF006E";
+
+    }
+
+
+    if (
+      frameColor === "#FFFFFF"
+    ) {
+
+      primaryTextColor =
+        "#111111";
+
+      subTextColor =
+        "#FF006E";
+
+    }
+
+
+    /* MAIN TITLE */
+
+    ctx.fillStyle =
+      primaryTextColor;
+
+    ctx.font =
+      '900 31px "Black Han Sans", Pretendard';
+
+    ctx.textAlign =
+      "center";
+
+    ctx.fillText(
+      "행복을 쫓는 우리에게",
+      w / 2,
+      footerY + 40
+    );
+
+
+    /* SUBTITLE */
+
+    ctx.fillStyle =
+      subTextColor;
+
+    ctx.font =
+      '800 16px Pretendard';
+
+    ctx.fillText(
+      "행운의 네잎보단 행복의 세잎",
+      w / 2,
+      footerY + 70
+    );
+
+
+    /* DATE */
+
+    const now =
+      new Date();
+
+    const year =
+      now.getFullYear();
+
+    const month =
+      String(
+        now.getMonth() + 1
+      ).padStart(2, "0");
+
+    const day =
+      String(
+        now.getDate()
+      ).padStart(2, "0");
+
+
+    const todayFormatted =
+      `${year}.${month}.${day}`;
+
+
+    ctx.fillStyle =
+      primaryTextColor;
+
+    ctx.font =
+      '600 14px Pretendard';
+
+    ctx.globalAlpha =
+      0.85;
+
+
+    ctx.fillText(
+      todayFormatted,
+      w / 2,
+      footerY + 96
+    );
+
+
+    ctx.globalAlpha =
+      1;
+
+
+    /* IMPORTANT:
+       No clover is drawn here.
+    */
+
+  }
+
+
+  /* =========================================================
+     FINAL SCREEN
+  ========================================================= */
+
+  function proceedToFinal() {
+
+    goToStep(4);
+
+
+    const fill =
+      document.getElementById(
+        "progress-fill"
+      );
+
+
+    const title =
+      document.getElementById(
+        "result-title"
+      );
+
+
+    const container =
+      document.getElementById(
+        "result-container"
+      );
+
+
+    const actions =
+      document.getElementById(
+        "result-actions"
+      );
+
+
+    let val = 0;
+
+
+    const timer =
+      setInterval(() => {
+
+        val += 25;
+
+
+        fill.style.width =
+          val + "%";
+
+
+        if (
+          val >= 100
+        ) {
+
+          clearInterval(
+            timer
+          );
+
+
+          document.getElementById(
+            "progress-track"
+          ).style.display =
+            "none";
+
+
+          title.innerHTML =
+            "🎉 네컷 사진이 완성되었습니다!";
+
+
+          container.innerHTML =
+            "";
+
+
+          const finalCanvas =
+            document.createElement(
+              "canvas"
+            );
+
+
+          finalCanvas.width =
+            previewCanvas.width;
+
+          finalCanvas.height =
+            previewCanvas.height;
+
+
+          finalCanvas.style.maxHeight =
+            "410px";
+
+          finalCanvas.style.maxWidth =
+            "100%";
+
+          finalCanvas.style.border =
+            "3px solid #111";
+
+          finalCanvas.style.borderRadius =
+            "3px";
+
+          finalCanvas.style.boxShadow =
+            "6px 6px 0 rgba(0,0,0,0.8)";
+
+
+          finalCanvas
+            .getContext("2d")
+            .drawImage(
+              previewCanvas,
+              0,
+              0
+            );
+
+
+          container.appendChild(
+            finalCanvas
+          );
+
+
+          container.style.display =
+            "block";
+
+
+          actions.style.display =
+            "flex";
+
+        }
+
+      }, 120);
+
+  }
+
+
+  /* =========================================================
+     DOWNLOAD
+  ========================================================= */
+
+  function downloadPhoto() {
+
+    const now =
+      new Date();
+
+
+    const dateStr =
+      `${now.getFullYear()}${
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0")
+      }${
+        String(
+          now.getDate()
+        ).padStart(2, "0")
+      }`;
+
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+
+    link.download =
+      `행복을_쫓는_우리에게_${dateStr}.png`;
+
+
+    link.href =
+      previewCanvas.toDataURL(
+        "image/png"
+      );
+
+
+    link.click();
+
+  }
+
+
+  /* =========================================================
+     RESET
+  ========================================================= */
+
+  function resetBooth() {
+
+    if (stream) {
+
+      stream
+        .getTracks()
+        .forEach(track =>
+          track.stop()
+        );
+
+    }
+
+
+    location.reload();
+
+  }
+
+</script>
 
 </body>
 </html>
